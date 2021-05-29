@@ -36,9 +36,13 @@ namespace RecapProject1
             this.tbxSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
             this.dgwProduct = new System.Windows.Forms.DataGridView();
+            this.tbxSearchId = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbxSearchByCategoryId = new System.Windows.Forms.TextBox();
             this.gbxCategory.SuspendLayout();
             this.gbxSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwProduct)).BeginInit();
+            this.tbxSearchId.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxCategory
@@ -88,6 +92,7 @@ namespace RecapProject1
             this.tbxSearch.Name = "tbxSearch";
             this.tbxSearch.Size = new System.Drawing.Size(239, 20);
             this.tbxSearch.TabIndex = 1;
+            this.tbxSearch.TextChanged += new System.EventHandler(this.tbxSearch_TextChanged);
             // 
             // lblSearch
             // 
@@ -101,16 +106,46 @@ namespace RecapProject1
             // dgwProduct
             // 
             this.dgwProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwProduct.Location = new System.Drawing.Point(19, 160);
+            this.dgwProduct.Location = new System.Drawing.Point(18, 212);
             this.dgwProduct.Name = "dgwProduct";
             this.dgwProduct.Size = new System.Drawing.Size(704, 105);
             this.dgwProduct.TabIndex = 2;
+            this.dgwProduct.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwProduct_CellContentClick);
+            // 
+            // tbxSearchId
+            // 
+            this.tbxSearchId.Controls.Add(this.tbxSearchByCategoryId);
+            this.tbxSearchId.Controls.Add(this.label1);
+            this.tbxSearchId.Location = new System.Drawing.Point(18, 154);
+            this.tbxSearchId.Name = "tbxSearchId";
+            this.tbxSearchId.Size = new System.Drawing.Size(707, 47);
+            this.tbxSearchId.TabIndex = 3;
+            this.tbxSearchId.TabStop = false;
+            this.tbxSearchId.Text = "Ürün Numarasına Göre Ara";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(21, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Ara : ";
+            // 
+            // tbxSearchByCategoryId
+            // 
+            this.tbxSearchByCategoryId.Location = new System.Drawing.Point(99, 16);
+            this.tbxSearchByCategoryId.Name = "tbxSearchByCategoryId";
+            this.tbxSearchByCategoryId.Size = new System.Drawing.Size(239, 20);
+            this.tbxSearchByCategoryId.TabIndex = 2;
+            this.tbxSearchByCategoryId.TextChanged += new System.EventHandler(this.tbxSearchByCategoryId_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(769, 387);
+            this.Controls.Add(this.tbxSearchId);
             this.Controls.Add(this.dgwProduct);
             this.Controls.Add(this.gbxSearch);
             this.Controls.Add(this.gbxCategory);
@@ -122,6 +157,8 @@ namespace RecapProject1
             this.gbxSearch.ResumeLayout(false);
             this.gbxSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwProduct)).EndInit();
+            this.tbxSearchId.ResumeLayout(false);
+            this.tbxSearchId.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -135,6 +172,9 @@ namespace RecapProject1
         private System.Windows.Forms.TextBox tbxSearch;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.DataGridView dgwProduct;
+        private System.Windows.Forms.GroupBox tbxSearchId;
+        private System.Windows.Forms.TextBox tbxSearchByCategoryId;
+        private System.Windows.Forms.Label label1;
     }
 }
 
