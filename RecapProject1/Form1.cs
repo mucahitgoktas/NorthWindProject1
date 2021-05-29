@@ -8,9 +8,11 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RecapProject1.Entities;
 
 namespace RecapProject1
 {
+    
     public partial class Form1 : Form
     {
         public Form1()
@@ -36,22 +38,22 @@ namespace RecapProject1
 
         }
 
-        private void ListProductByCategoryId(string key) // Hangi numarayı verirsek ona göre CategoryId filtrelemesiy yap.
-        {
-            using (NorthwindContext context =new NorthwindContext())
-            {
-                crxKategori.DataSource = context.Categories.Where(p=> p.CategoryID(tbxSearchByCategoryId.Text)).ToList();
-            }
-        }
+       
 
         private void ListProductByCategory(int categoryId) // ben sana bir kategori id vericem, ürünleri listele ama verdiğim kategoride listele..
         {
             using (NorthwindContext Context = new NorthwindContext()) // NordWindContext.cs içerisinde db bağlantısı kurmuştuk.
                 // ismini context yaptık.
             {
-                crxKategori.DataSource = Context.Categories.Where(p => p.CategoryID == categoryId).ToList(); // kategori seçtiğimizde,
+                // lambda "=>" ifadesinin bu satırdaki kullanımı:
+                // products tablosunun içerisine context'te db bağlantısı kurarken product ismi verip product.cs yi hedef göstermiştik. "p" değeri onu ifade eder.
+                // Context'in products bağlantısının içine girmek için where(p => yazıp p.(istediğimiz değişken) + yapacağımız işlem);
+               dgwProduct.DataSource = Context.Products.Where(p => p.CategoryID == categoryId).ToList(); // kategori seçtiğimizde,
                                                                                         // kategori id bizim tanımladığımız değere eşitlenecek ve gridview'de o kategoridekiler listelenecek.
                                                                                         // veri tabanına select * from gönderecek. Listeleyecek.
+             
+
+
 
                 crxKategori.DisplayMember = "CategoryName";
                 crxKategori.ValueMember = "CategoryID";
@@ -63,7 +65,8 @@ namespace RecapProject1
             using (NorthwindContext context =new NorthwindContext())// NordWindContext.cs içerisinde db bağlantısı kurmuştuk.
                 // ismini context yaptık.
             {
-                dgwProduct.DataSource = context.Products.Where(p => p.ProductName.Contains(tbxSearch.Text)).ToList();
+                dgwProduct.DataSource = context.Products.Where(p => p.ProductName.ToLower().Contains(key.ToLower())).ToList(); 
+                
             }
         }
 
@@ -115,12 +118,19 @@ namespace RecapProject1
         private void tbxSearch_TextChanged(object sender, EventArgs e) // textbox Search için event.
 
         {
-            ListProductByProductName(tbxSearch.Text);
+            string key = tbxSearch.Text; // kod tekrarı yapmamak için(her yere tbxSearch.Text yazmamak için),
+                                         // tbxSearch.Text değerine "key" ismini veriyoruz.
+            if (string.IsNullOrEmpty(key)) // eğer textbox boşsa
+            {
+                ListProducts(); // ürünleri listele.
+            }
+            else
+            {
+                ListProductByProductName(tbxSearch.Text); // text girilen ürünleri getir.
+            }
+            
         }
 
-        private void tbxSearchByCategoryId_TextChanged(object sender, EventArgs e) // textbox Kategoriye Göre ara için event.
-        {
-            ListProductByProductName(tbxSearchByCategoryId.Text);
-        }
+       
     }
 }
